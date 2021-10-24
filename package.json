@@ -4,7 +4,7 @@
   "description": "CS 519 Final Project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/index.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/pslaats/Satellite-Visualization/issues"
   },
-  "homepage": "https://github.com/pslaats/Satellite-Visualization#readme"
+  "homepage": "https://github.com/pslaats/Satellite-Visualization#readme",
+  "dependencies": {
+    "d3": "^7.1.1",
+    "express": "^4.17.1"
+  }
 }
