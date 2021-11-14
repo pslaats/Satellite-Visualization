@@ -2,7 +2,7 @@ const express = require("express");
 const PORT = 3001;
 const app = express();
 
-app.get("/api", (req, res) => {
+app.get("/sat-data", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
 
