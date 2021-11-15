@@ -3,7 +3,7 @@ const PORT = 3001;
 const app = express();
 
 app.get("/sat-data", (req, res) => {
-  res.json({ message: "Hello from server!" });
+  res.json({ message: "Request for satellite data should be handled here" });
 });
 
 app.listen(PORT, () => {
