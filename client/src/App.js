@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
-
 import DeathStar from "./DeathStar";
-
-import satellitesTLERaw from "./data/satellites.txt"
-
+import satellitesTLERaw from "./data/satellites.txt";
 import { parseRawTleData } from "./utils/satelliteHelpers";
-
 import "./App.css";
-
 
 function App() {
   const [data, setData] = useState(null);
@@ -15,17 +10,14 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
+      const res = await fetch(satellitesTLERaw);
+      const rawData = await res.text();
+      const parsedData = parseRawTleData(rawData);
 
-      const res = await fetch(satellitesTLERaw)
-      const rawData = await res.text()
-      const parsedData = parseRawTleData(rawData)
-
-      setData(parsedData[0].id)
-      setSatelliteData(parseRawTleData(rawData))
-
-    }
-
-    fetchData()
+      setData(parsedData[0].id);
+      setSatelliteData(parseRawTleData(rawData));
+    };
+    fetchData();
   }, [data]);
 
   return (
