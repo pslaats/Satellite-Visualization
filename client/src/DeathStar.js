@@ -1,24 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as d3 from "d3";
-import { useD3 } from "./hooks/useD3";
+import { feature } from "topojson-client";
 
-function DeathStar({ data }) {
-  const ref = useD3((svg) => {
-    const height = 1000;
-    const width = 1000;
-    const margin = { top: 10, right: 20, bottom: 10, left: 20 };
-  });
+function DeathStar(props) {
+  const { data } = props;
+  const [geographies, setGeographies] = useState([]);
+  const [rotation, setRotation] = useState(0);
+
+  useEffect(() => {
+    d3.json("https://unpkg.com/world-atlas@2.0.2/countries-50m.json").then(
+      (response) => {
+        setGeographies(feature(response, response.objects.countries).features);
+      }
+    );
+  }, []);
+
+  const projection = d3
+    .geoOrthographic()
+    .scale(250)
+    .clipAngle(90)
+    .rotate(rotation);
+
   return (
-    <svg
-      ref={ref}
-      style={{
-        height: 1000,
-        style: "100%",
-        merginRight: "0px",
-        merginLeft: "0px",
-      }}
-    >
-      <g className="satellite-area" />
+    <svg width={1000} height={1000}>
+      <g className="countries">
+        {geographies.map((d, i) => (
+          <path
+            key={`country-${i}`}
+            d={d3.geoPath().projection(projection)(d)}
+            className="country"
+            stroke="#FFFFFF"
+            strokeWidth={1}
+          />
+        ))}
+      </g>
     </svg>
   );
 }
