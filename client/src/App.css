@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.DeathStar {
+  height: 100vh;
+  width: 100vh;
+  margin-top: 25vh;
+}
