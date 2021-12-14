@@ -1,14 +1,10 @@
 import React from "react";
-import { DataGrid } from "@mui/x-data-grid";
-
-const columns = [{ field: "id", headerName: "Name", width: 200 }];
+import SatelliteDataGrid from "./SatelliteDataGrid";
 
 const RightSidePanel = (props) => {
-  const satelliteData = props?.satelliteData;
-
   return (
     <div className="right-side-panel-container">
-      <DataGrid columns={columns} rows={satelliteData} />
+      <SatelliteDataGrid />
     </div>
   );
 };
