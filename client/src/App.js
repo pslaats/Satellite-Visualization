@@ -1,36 +1,44 @@
 import React, { useState, useEffect } from "react";
-import DeathStar from "./DeathStar";
 import satellitesTLERaw from "./data/satellites.txt";
-import geographyData from "./data/countries_geo_json";
 import { parseRawTleData } from "./utils/satelliteHelpers";
-import "./App.css";
 
-function App() {
-  const [data, setData] = useState(null);
+import NavBar from "./components/NavigationBar";
+
+import RightSidePanel from "./components/RightSidePanel";
+import GlobeContainer from "./components/GlobeContainer";
+
+import "./App.css";
+import { SatelliteContext } from "./contexts/SatelliteProvider";
+
+const App = () => {
+  const [state, dispatch] = React.useContext(SatelliteContext);
+  const [satelliteData, setSatelliteData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(satellitesTLERaw);
       const rawData = await res.text();
-      const parsedData = parseRawTleData(rawData);
+      const parsedData = await parseRawTleData(rawData);
+      console.log(parsedData);
 
-      if (parsedData.length) {
-        setData(parsedData[0].id);
-        setSatelliteData(parseRawTleData(rawData));
-      }
+      dispatch({ type: "set_satellite_data", payload: parsedData });
+
+      setSatelliteData([...parsedData]);
     };
     fetchData();
-  }, [data]);
+  }, []);
 
   return (
     <div className="App">
-      <header className="App-header">
-        {geographyData ? (
-          <DeathStar data={data} geography={geographyData} />
+      <NavBar />
+      <div className="main-container">
+        {satelliteData ? (
+          <GlobeContainer satelliteData={satelliteData} />
         ) : null}
-      </header>
+        <RightSidePanel satelliteData={satelliteData} />
+      </div>
     </div>
   );
-}
+};
 
 export default App;

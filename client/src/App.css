@@ -42,3 +42,25 @@
   width: 100vh;
   margin-top: 25vh;
 }
+
+.container {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.globe-container {
+  flex: 2 1 auto;
+  max-width: 80%;
+}
+
+.right-side-panel-container {
+  flex-grow: 1 1 auto;
+  width: 100%;
+  background-color: #121212;
+  z-index: 100;
+}
