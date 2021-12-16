@@ -19,7 +19,7 @@ const GlobeContainer = (props) => {
     lat: e.currPos.lat,
     lng: e.currPos.lng,
     size: 10,
-    color: ["red", "white", "blue", "green"][Math.round(Math.random() * 3)],
+    color: "white",
   }));
 
   const unselectSatellite = () => {
@@ -37,7 +37,7 @@ const GlobeContainer = (props) => {
           pathColor={() => ["rgba(0,0,255,0.6)", "rgba(255,0,0,0.6)"]}
           pathDashLength={0.001}
           pathDashGap={0.004}
-          pathDashAnimateTime={100000}
+          pathDashAnimateTime={1000}
           pathStroke={5}
           pathPointAlt={0.5}
           pathTransitionDuration={0}

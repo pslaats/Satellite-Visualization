@@ -12,30 +12,25 @@ import { SatelliteContext } from "./contexts/SatelliteProvider";
 
 const App = () => {
   const [state, dispatch] = React.useContext(SatelliteContext);
-  const [satelliteData, setSatelliteData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(satellitesTLERaw);
       const rawData = await res.text();
       const parsedData = await parseRawTleData(rawData);
-      console.log(parsedData);
 
       dispatch({ type: "set_satellite_data", payload: parsedData });
-
-      setSatelliteData([...parsedData]);
     };
     fetchData();
+    // setInterval(fetchData(), 1000);
   }, []);
 
   return (
     <div className="App">
       <NavBar />
       <div className="main-container">
-        {satelliteData ? (
-          <GlobeContainer satelliteData={satelliteData} />
-        ) : null}
-        <RightSidePanel satelliteData={satelliteData} />
+        {state.satData ? <GlobeContainer /> : null}
+        <RightSidePanel />
       </div>
     </div>
   );
