@@ -38,15 +38,11 @@ export const parseRawTleData = async (rawTleData) => {
       return {
         id: satData.id,
         tle: satData.tle,
-        currPos: getLatLongs(satData.tle),
+        currPos: getLatLngObj(satData.tle),
       };
     });
 
   return satellites;
-};
-
-const getLatLongs = (tle) => {
-  return getLatLngObj(tle);
 };
 
 export const getPath = (tle) => {
